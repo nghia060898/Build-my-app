@@ -1,0 +1,25 @@
+{
+  "name": "clear",
+  "version": "1.0.0",
+  "description": "build web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "author": "Nghia",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.23.8",
+    "angular": "^1.8.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3",
+    "nodemon": "^3.0.3"
+  }
+}
