@@ -1,0 +1,8 @@
+.mx5 {
+    margin-right: 3rem!important;
+    margin-left: 3rem!important;
+}
+
+.card .mx-5 div {
+    width: 45rem;
+}

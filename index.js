@@ -26,7 +26,7 @@ viewEngine(app);
 //   .catch((err) => {
 //     console.log(`Kết nối MongoDB fail: ${err}`);
 //   });
-const PORT = process.env.PORT || 2024;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
   console.log(`App được nghe thành công trên port ${PORT}`);

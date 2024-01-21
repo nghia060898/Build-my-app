@@ -1,11 +1,10 @@
 const express = require("express");
-
 const router = express.Router();
+const homeController = require("../controllers/homeController")
 
 const initWebRouter = (app) => {
-    router.get("/", (req, res) => {
-        return res.send("Hello Nghia")
-    })
+    router.get("/", homeController.getHomePage)
+    router.get("/user", homeController.getUserPage)
     return app.use("/", router)
 }
 
