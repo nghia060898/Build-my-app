@@ -1,40 +1,49 @@
 const express = require("express");
 const app = express();
 // const CONFIG = require("./config/config");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 // const { Clothers } = require("./model/clothersModel");
 // const cors = require("cors");
+// const bodyParser = require("body-parser")
 const router = require("./router/web");
 const viewEngine = require("./config/viewEngine");
 require("dotenv").config();
+
+// Use epress
+app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ limit: "25mb", extended: true }));
+
+//Use bodyParser
+// app.use(bodyParser.urlencoded({ extended: false }))
+
+// // parse application/json
+// app.use(bodyParser.json())
 
 //use router
 router(app);
 
 //setting view engine
 viewEngine(app);
-
-// mongoose
-//   .connect(CONFIG._URL, {
-//     maxPoolSize: 100,
-//     //useNewUrlParser: true,
-//     //useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     console.log("Đã kết nối MongoDB Compass");
-//   })
-//   .catch((err) => {
-//     console.log(`Kết nối MongoDB fail: ${err}`);
-//   });
-const PORT = process.env.PORT || 8080;
+// Use moogoose
+const URL = process.env._URL;
+mongoose
+  .connect(URL, {
+    maxPoolSize: 1000000,
+    //useNewUrlParser: true,
+    //useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Đã kết nối MongoDB Compass");
+  })
+  .catch((err) => {
+    console.log(`Kết nối MongoDB fail: ${err}`);
+  });
+const PORT = process.env.PORT || 2024;
 
 app.listen(PORT, () => {
   console.log(`App được nghe thành công trên port ${PORT}`);
 });
 
-// Use epress
-// app.use(express.json({ limit: "25mb" }));
-// app.use(express.urlencoded({ limit: "25mb", extended: true }));
 // app.use(
 //   cors({
 //     origin: "*",
