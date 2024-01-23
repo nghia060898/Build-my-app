@@ -25,9 +25,9 @@ router(app);
 //setting view engine
 viewEngine(app);
 // Use moogoose
-const URL = process.env._URL;
+
 mongoose
-  .connect(URL, {
+  .connect(process.env._URL_admin, {
     maxPoolSize: 1000000,
     //useNewUrlParser: true,
     //useUnifiedTopology: true,

@@ -14,11 +14,12 @@
   </head>
   <body>
     <div class="container">
+     
       <div class="row">
         <h1>Table Controller Users:</h1>
       </div>
       <div class="row">
-        <table class="table table-dark table-hover mt-5">
+        <table class="table table-dark table-hover table-bordered mt-5">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -27,6 +28,7 @@
               <th scope="col">Phone</th>
               <th scope="col">Pass</th>
               <th scope="col">Status</th>
+              <th scope="col">Create Time</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -34,24 +36,39 @@
             <% listUsers.forEach(function(item,index){ %>
             <tr>
               <th scope="row"><%= index + 1 %></th>
-              <td><%= item.email %></td>
-              <td><%= item.username %></td>
-              <td><%= item.phone %></td>
-              <td><%= item.password %></td>
-              <td><%= item.status %></td>
+              <td id="email"><%= item.email %></td>
+              <td id="username"><%= item.username %></td>
+              <td id="phone"><%= item.phone %></td>
+              <td id="password"><%= item.password %></td>
+              <td ><%= item.status %></td>
+              <td ><%= item.createdAt %></td>
               <td>
-                <button type="button" class="btn btn-primary btn-lg">
+                <form method="POST" action="/edit/<%= item._id %>">
+                <button
+                  type="submit"
+                  
+                  class="btn btn-primary btn-lg mb-2"
+                >
                   Edit
                 </button>
-                <button type="button" class="btn btn-danger btn-lg">
+                </form>
+                <form method="POST" action="/delete/<%= item._id %>">
+                <button
+                  type="submit"
+                 
+                  class="btn btn-danger btn-lg"
+                >
                   Delete
                 </button>
               </td>
+            </form>
             </tr>
             <% }) %>
           </tbody>
         </table>
       </div>
+
+    
     </div>
   </body>
 </html>

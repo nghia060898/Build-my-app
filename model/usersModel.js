@@ -5,7 +5,7 @@ const users = mongoose.Schema(
 
         email: {type: String},
         username: {type: String},
-        phone: {type: Number},
+        phone: {type: String},
         password: {type: String},
         otp: {type: String},
         token: {type: String},

@@ -8,7 +8,10 @@ const initWebRouter = (app) => {
   router.get("/user", homeController.getUserPage);
   router.post("/signup", homeController.signup);
   router.get("/admin", adminController.getInfoSchema);
-  // router.get("/users", homeController.getInfoSchema)
+  router.post("/edit/:id", adminController.editInfo)
+  router.post("/update/:id", adminController.updateInfo)
+  router.post("/delete/:id", adminController.deleteInfo)
+  
   return app.use("/", router);
 };
 
