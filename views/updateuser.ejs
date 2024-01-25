@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
         
-            <form method="POST" action="/update/<%= userEditInfo._id %>">
+            <form method="POST" action="/update/<%= userEditInfo.id %>">
             <div class="edit-user-info-container">
                 <div class="container">
                   <div class="row mt-5 pagination justify-content-center">
@@ -57,7 +57,7 @@
                           type="tel"
                           class="form-control"
                           id="tel"
-                          name="Inputphone"
+                          name="phone"
                           required
                           value="<%= userEditInfo.phone %>"
                         />

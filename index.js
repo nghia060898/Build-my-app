@@ -1,13 +1,15 @@
 const express = require("express");
 const app = express();
 // const CONFIG = require("./config/config");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 // const { Clothers } = require("./model/clothersModel");
 // const cors = require("cors");
 // const bodyParser = require("body-parser")
 const router = require("./router/web");
 const viewEngine = require("./config/viewEngine");
 require("dotenv").config();
+// const mysql = require('mysql');
+
 
 // Use epress
 app.use(express.json({ limit: "25mb" }));
@@ -26,18 +28,38 @@ router(app);
 viewEngine(app);
 // Use moogoose
 
-mongoose
-  .connect(process.env._URL_admin, {
-    maxPoolSize: 1000000,
-    //useNewUrlParser: true,
-    //useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Đã kết nối MongoDB Compass");
-  })
-  .catch((err) => {
-    console.log(`Kết nối MongoDB fail: ${err}`);
-  });
+// mongoose
+//   .connect(process.env._URL_admin, {
+//     maxPoolSize: 1000000,
+//     //useNewUrlParser: true,
+//     //useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("Đã kết nối MongoDB Compass");
+//   })
+//   .catch((err) => {
+//     console.log(`Kết nối MongoDB fail: ${err}`);
+//   });
+
+
+
+//Use MySQL
+
+// const connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : 'thn060898',
+//   database : 'admin_dev',
+  
+// });
+ 
+// connection.connect(
+//   console.log(`Conneted MySQL`)
+// )
+
+
+
+
 const PORT = process.env.PORT || 2024;
 
 app.listen(PORT, () => {

@@ -1,71 +1,88 @@
 const { users } = require("../model/usersModel");
-const mongoose = require("mongoose")
+// const mongoose = require("mongoose")
+const bcrypt = require("bcryptjs");
+
+const mysql = require("mysql");
+
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "thn060898",
+  database: "admin_dev",
+});
 
 const adminServices = function () {
   return {
     getlistUsers: async (req, res) => {
-      let list = [];
-      const info = await users.find({});
-      try {
-        list = info;
-        return list;
-      } catch (error) {
-        console.log(error.stack);
-      }
-      // usersService.get
+      return new Promise((resolve, reject) => {
+        let list = [];
+        connection.query(
+          "SELECT * FROM table_users",
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              reject(error); // Reject the promise if there is an error
+            }
+
+            list = results;
+            resolve(list); // Resolve the promise with the result
+          }
+        );
+      });
     },
     deleteUser: async (req, res) => {
-      try {
+      
         const { id } = req.params;
-        const findUser = await users.findById(id);
-        if (findUser) {
-            let d = []
-           d = await users.deleteOne({ _id: id });
-          return d
-        }
-        // console.log(idUser)
-        // return d
-      } catch (error) {
-        console.log(error.stack);
-      }
+        return new Promise((resolve, reject) => {
+          connection.query('DELETE FROM table_users WHERE id = ?', [id],
+          function (error, results, fields) {
+           if (error){
+             reject(error.stack)
+           }
+           resolve()
+         })
+        })
+    
     },
     editUser: async (req, res) => {
       const { id } = req.params;
       // const {email, username, phone, password, createdAt} = req.body
-      const userEdit = await users.findOne({ _id: id });
-      try {
-        return userEdit;
+      // console.log(req.body)
+      let userEdit = {};
+       return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM table_users WHERE id = ?', [id],
+         function (error, results, fields) {
+          if (error){
+            reject(error.stack)
+          }
+          userEdit = results[0]
+
+          resolve(userEdit)
+        });
+       } )
+       
+        // return userEdit;
         //   }
-      } catch (error) {
-        console.log(error.stack);
-      }
+
     },
     updateUser: async (req, res) => {
-        const {id} = req.params
-        const {email, username, password, phone} = req.body
-        const idUser = new mongoose.Types.ObjectId(id)
-        const userEdit = await users.findById(idUser);
-        try {
-            if(userEdit){
-            const userUpdate = await users.updateOne({_id: id},
-               {$set:
-              {
-                email: email,
-                username: username,
-                phone: phone,
-                password: password,
-              }
-            })
-            return 
+      const { id } = req.params;
+      const { email, username, phone, password } = req.body;
+      const salt = bcrypt.genSaltSync(10);
+      const hashpassword = bcrypt.hashSync(password, salt);
+      return new Promise((resolve, reject) => {
+        connection.query('UPDATE table_users SET email = ?, username = ?, phone = ?, password = ? WHERE id = ?',
+         [email, username, phone, hashpassword, id],
+        function (error, results, fields){
+          if (error){
+            reject(error.stack)
           }
-            
-        } catch (error) {
-          console.log(error.stack)
-        }
-          
+          resolve(req.body)
+        })
+      })
+     
     },
   };
-}
-
+};
 
 module.exports = new adminServices();
