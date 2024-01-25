@@ -1,4 +1,4 @@
-const { users } = require("../model/usersModel");
+
 const bcrypt = require("bcryptjs");
 const mysql = require('mysql');
 
