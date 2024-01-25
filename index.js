@@ -9,9 +9,8 @@ const router = require("./router/web");
 const viewEngine = require("./config/viewEngine");
 require("dotenv").config();
 
-const connect = require("./config/configConnect")
+const connect = require("./config/configConnect");
 // const mysql = require('mysql');
-
 
 // Use epress
 app.use(express.json({ limit: "25mb" }));
@@ -23,7 +22,7 @@ app.use(express.urlencoded({ limit: "25mb", extended: true }));
 // // parse application/json
 // app.use(bodyParser.json())
 
-
+//connect DB use sequelize
 connect();
 
 //use router
@@ -46,8 +45,6 @@ viewEngine(app);
 //     console.log(`Kết nối MongoDB fail: ${err}`);
 //   });
 
-
-
 //Use MySQL
 
 // const connection = mysql.createConnection({
@@ -55,15 +52,12 @@ viewEngine(app);
 //   user     : 'root',
 //   password : 'thn060898',
 //   database : 'admin_dev',
-  
+
 // });
- 
+
 // connection.connect(
 //   console.log(`Conneted MySQL`)
 // )
-
-
-
 
 const PORT = process.env.PORT || 2024;
 
