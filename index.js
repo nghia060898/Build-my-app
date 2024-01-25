@@ -8,6 +8,8 @@ const app = express();
 const router = require("./router/web");
 const viewEngine = require("./config/viewEngine");
 require("dotenv").config();
+
+const connect = require("./config/configConnect")
 // const mysql = require('mysql');
 
 
@@ -20,6 +22,9 @@ app.use(express.urlencoded({ limit: "25mb", extended: true }));
 
 // // parse application/json
 // app.use(bodyParser.json())
+
+
+connect();
 
 //use router
 router(app);
