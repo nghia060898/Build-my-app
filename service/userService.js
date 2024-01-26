@@ -1,17 +1,17 @@
 
 const bcrypt = require("bcryptjs");
-const mysql = require('mysql');
+// const mysql = require('mysql');
 const db = require("../models/index")
 
 
 
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'thn060898',
-  database : 'admin_dev',
+// const connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : 'thn060898',
+//   database : 'admin_dev',
   
-});
+// });
 
 const usersService = function () {
   return {

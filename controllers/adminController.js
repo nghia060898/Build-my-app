@@ -1,13 +1,13 @@
-// const { users } = require("../model/usersModel");
 const adminService = require("../service/adminService");
 
 const admin = function () {
-  let listUsers = [];
+
 
  
   return {
     getInfoSchema: async(req, res) => {
       try {     
+        let listUsers = [];
         listUsers = await adminService.getlistUsers(req, res) 
         // return res.send("list")
         return res.render("adminControllerUsers.ejs", { listUsers});
@@ -24,6 +24,7 @@ const admin = function () {
       let userEditInfo = {};
       try {
         userEditInfo = await adminService.editUser(req, res);
+        // console.log(userEditInfo)
         return res.render("updateuser.ejs", {userEditInfo});
       } catch (error) {
         console.log(error);

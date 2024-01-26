@@ -1,6 +1,5 @@
 
 const usersService = require("../service/userService");
-// const mysql = require('mysql');
 
 
 const handleHelloWork = function () {
@@ -20,10 +19,7 @@ const handleHelloWork = function () {
       return res.send("User Controller");
     }
   };
-      // let createnewUser = [];
 
-      // const comparepassword = bcrypt.compareSync(password, hashpassword); // true
-      // createnewUser = await usersService.createNew(req, res);
    
   };
 
