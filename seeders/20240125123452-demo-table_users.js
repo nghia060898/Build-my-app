@@ -1,5 +1,8 @@
 "use strict";
 
+
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,28 +12,32 @@ module.exports = {
      
     */
 
+    const bcrypt = require("bcryptjs");
+    const salt = bcrypt.genSaltSync(10);
+    let hashpassword = ""
+
     await queryInterface.bulkInsert(
       "table_users",
       [
         {
           email: "Nghia2@gmail.com",
           username: "Fake2",
-          password: "thn0608982",
-          status: "",
+          password:  hashpassword = bcrypt.hashSync("thn0608982", salt),
+          status: "pending",
           token: "",
         },
         {
           email: "Nghia3@gmail.com",
           username: "Fake3",
-          password: "thn0608983",
-          status: "",
+          password: hashpassword = bcrypt.hashSync("thn0608983" , salt),
+          status: "pending",
           token: "",
         },
         {
           email: "Nghia4@gmail.com",
           username: "Fake4",
-          password: "thn0608984",
-          status: "",
+          password:  hashpassword = bcrypt.hashSync("thn0608984" , salt),
+          status: "pending",
           token: "",
         },
       ],

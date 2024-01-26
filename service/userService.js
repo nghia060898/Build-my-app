@@ -1,6 +1,7 @@
 
 const bcrypt = require("bcryptjs");
 const mysql = require('mysql');
+const db = require("../models/index")
 
 
 
@@ -15,25 +16,38 @@ const connection = mysql.createConnection({
 const usersService = function () {
   return {
 
-    insertlistUser: (req, res) => {
+    insertlistUser: async (req, res) => {
 
-
-  
-      const {email, username, phone, password} = req.body
+      try {
+        const {email, username, phone, password} = req.body
 
       
         const salt = bcrypt.genSaltSync(10);
         const hashpassword = bcrypt.hashSync(password, salt);
   
-      connection.query('INSERT INTO table_users(email, username, phone, password) VALUES (?, ?, ?, ?)', [email, username, phone, hashpassword], 
+      // connection.query('INSERT INTO table_users(email, username, phone, password) VALUES (?, ?, ?, ?)', [email, username, phone, hashpassword], 
       
-      function (error, results, fields) {
-        if (error){
-          console.log(error.stack)
-        }
-        return
+      // function (error, results, fields) {
+      //   if (error){
+      //     console.log(error.stack)
+      //   }
+      //   return
+      // }
+      // )
+
+        await db.table_users.create({
+          email :email,
+          username : username,
+          phone : phone, 
+          password : hashpassword,
+        })
+
+
+      } catch (error) {
+        console.log(error.stack)
       }
-      )
+  
+      
     }
 
     
