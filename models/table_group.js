@@ -5,7 +5,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class table_users extends Model {
+  class table_group extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,26 +13,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      table_users.belongsTo(models.table_group,
-         { foreignKey: 'groupId',
-        //  onDelete: 'NULL',
+      table_group.hasMany(models.table_users, {
+        foreignKey: 'groupId',
+        //  onDelete: 'NULL', 
         //  onUpdate: 'CASCADE',
-         },
-         )
+        })
+
+      table_group.belongsToMany(models.table_role, 
+            {as: 'group_role', 
+            through: {model: models.table_group_role,
+            }, 
+            foreignKey: 'groupId'});
+
     }
   }
-  table_users.init({
-    email: DataTypes.STRING,
-    username: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    password: DataTypes.STRING,
-    status: DataTypes.STRING,
-    token: DataTypes.STRING,
-    groupId: DataTypes.INTEGER,
+  table_group.init({
+    name: DataTypes.STRING,
+    description: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'table_users',
+    modelName: 'table_group',
     freezeTableName: true,
   });
-  return table_users;
+  return table_group;
 };

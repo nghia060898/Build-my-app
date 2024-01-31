@@ -13,7 +13,7 @@ const adminServices = function () {
   return {
     getlistUsers: async (req, res) => {
       // return new Promise((resolve, reject) => {
-      let list = [];
+      // let list = {};
       // connection.query(
       //   "SELECT * FROM table_users",
       //   function (error, results, fields) {
@@ -23,14 +23,63 @@ const adminServices = function () {
       //     }
 
       //     list = results;
+
       //     resolve(list); // Resolve the promise with the result
-      //   }
+      // }
       // );
 
-      list = await db.table_users.findAll();
+      // let list = await db.table_users.findOne(
+      // { where: { id: 1 } },
+      // {
+      //   include: [{ model: db.table_group}],
+      // }
+      // );
+
+      let list = await db.table_users.findAll({
+        // where: { id: 1 },
+        include: [{ model: db.table_group }],
+        raw: true,
+        nest: true,
+      });
+
+      let role = await db.table_group.findOne({
+        where: { id: 1 },
+        include: [
+          { model: db.table_role, 
+            through: "table_group_role", 
+            as: "group_role", 
+            raw: true,
+            nest: true, },
+        ],
+        raw: true,
+        nest: true,
+      });
+
+
+      const all =  await db.table_users.findOne({
+        where: { id: 3 },
+        attributes: ["email","username"],
+        include: [{ model: db.table_group, 
+          // where: { id: 1 },
+          attributes: ["name"],
+          include: [
+            { model: db.table_role, 
+              attributes: ["url","description"],
+              through: "table_group_role", 
+              as: "group_role", 
+              raw: true,
+              nest: true, },
+                  ],
+                  raw: true,
+                  nest: true,}],
+        raw: true,
+        nest: true,
+      });
+      console.log(all);
       return list;
 
-      // });
+      // }
+      // };
     },
     deleteUser: async (req, res) => {
       const { id } = req.params;
@@ -70,16 +119,12 @@ const adminServices = function () {
       // return userEdit;
       //   }
 
-      userEdit = await db.table_users.findOne(
-        {
-          where: {
-            id: id,
-          },
-        }
-      );
-        return userEdit
-
-
+      userEdit = await db.table_users.findOne({
+        where: {
+          id: id,
+        },
+      });
+      return userEdit;
     },
     updateUser: async (req, res) => {
       const { id } = req.params;
@@ -100,18 +145,20 @@ const adminServices = function () {
       // });
 
       await db.table_users.update(
-        { email: email,
+        {
+          email: email,
           username: username,
           phone: phone,
-          password: hashpassword, },
+          password: hashpassword,
+        },
         {
-        where: {
-          id: id
+          where: {
+            id: id,
+          },
         }
-        });
+      );
 
-        return
-
+      return;
     },
   };
 };
