@@ -57,7 +57,7 @@ const adminServices = function () {
 
 
       const all =  await db.table_users.findOne({
-        where: { id: 3 },
+        // where: { id: 3 },
         attributes: ["email","username"],
         include: [{ model: db.table_group, 
           // where: { id: 1 },
@@ -65,7 +65,7 @@ const adminServices = function () {
           include: [
             { model: db.table_role, 
               attributes: ["url","description"],
-              through: "table_group_role", 
+              // through: "table_group_role", 
               as: "group_role", 
               raw: true,
               nest: true, },
